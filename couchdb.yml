@@ -1,0 +1,19 @@
+- name: Stop and remove existing CouchDB container
+  docker_container:
+    name: 
+    state: absent
+    force_kill: yes
+- name: Deploy CouchDB
+  docker_container:
+    name: 
+    image: 
+    pull: true
+    state: started
+    recreate: yes
+    env:
+      COUCHDB_USER: "{{db_user}}"
+      COUCHDB_PASSWORD: "{{db_password}}"
+    published_ports:
+      - ""
+    networks:
+      - name: 

@@ -1,0 +1,16 @@
+# common.yml定义了每个任务共有的部分，如创建网络、启动docker服务以及登录到docker hub
+- name: Start docker service
+  ansible.builtin.systemd:
+    state: restarted
+    daemon_reload: true
+    name: docker
+
+- name: Log into DockerHub
+  community.docker.docker_login:
+    username: "{{docker_username}}"
+    password: "{{docker_password}}"
+
+- name: Create Network for CouchDB and Django Project
+  community.docker.docker_network:
+    name: 
+    state: present

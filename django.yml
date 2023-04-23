@@ -1,0 +1,28 @@
+- name: Stop and remove existing Django container
+  community.docker.docker_container: 
+    name: 
+    state: absent
+    force_kill: yes
+- name: Remove existing docker image
+  community.docker.docker_image:
+    name: 
+    state: absent
+- name: Build new Django docker image
+  community.docker.docker_image:
+    name: 
+    build:
+      path: "{{root_path}}{{django_path}}"
+      dockerfile: "{{root_path}}{{django_path}}/Dockerfile"
+    source: build
+- name: Run Django docker container
+  community.docker.docker_container:
+    name: 
+    image: 
+    state: started
+    recreate: yes
+    pull: false
+    published_ports:
+      - ""
+    networks: 
+      - name: 
+    

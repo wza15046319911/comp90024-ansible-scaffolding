@@ -1,0 +1,22 @@
+- name: Deploy Django Project and CouchDB containers
+  hosts: aws-server
+  gather_facts: no
+  vars_files:
+    - vars.yml
+  become: yes
+  tasks:
+    - name: pre install
+      include_tasks:
+        file: pre_install.yml
+    # - name: network
+    #   include_tasks:
+    #     file: common.yml
+    # - name: couchdb
+    #   include_tasks:
+    #     file: couchdb.yml
+    # - name: django
+    #   include_tasks:
+    #     file: django.yml
+    # - name: react
+    #   include_tasks:
+    #     file: react.yml

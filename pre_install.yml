@@ -1,0 +1,55 @@
+- name: 在本地计算机上运行脚本
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - vars.yml
+  tasks:
+    # - name: Create an MRC instance
+    #   openstack.cloud.server: 
+    #     auto_ip: false
+    #     availability_zone: "{{availability_zone}}"
+    #     flavor: "{{instance_flavor}}"
+    #     image: "{{instance_image}}"
+    #     key_name: "{{instance_key_name}}"
+    #     network: "{{instance_network}}"
+    #     name: "demo2"
+    #     security_groups: default,ssh
+    #     state: present
+    #     timeout: 600
+    #     wait: yes
+    #   register: os_instance
+
+    # - name: Print return information
+    #   debug:
+    #     var: os_instance
+
+
+- name: Fix apt directory ownership and permissions
+  file:
+    path: /var/lib/apt/lists/
+    owner: root
+    group: root
+    mode: '0755'
+- name: Update apt cache
+  apt:
+    update_cache: yes
+- name: Install Git
+  apt:
+    name: 
+      - git
+      - docker.io
+      - nodejs
+    state: present
+- name: git clone 
+  git:
+    repo: "{{my_frontend_git_repo}}"
+    dest: "{{root_path}}{{react_path}}"
+    single_branch: yes
+    version: main
+
+- name: git clone 
+  git:
+    repo: "{{my_backend_git_repo}}"
+    dest: "{{root_path}}{{django_path}}"
+    single_branch: yes
+    version: main
